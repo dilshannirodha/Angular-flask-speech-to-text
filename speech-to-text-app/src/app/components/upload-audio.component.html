@@ -1,0 +1,65 @@
+<div class="upload-audio bg-white p-6 rounded-lg  max-w-md w-full space-y-6">
+  <h2 class="text-2xl font-semibold text-gray-800">Upload or Record Audio</h2>
+
+  <div class="flex justify-center space-x-4">
+    <button
+      (click)="onChooseAudioFile()"
+      class="px-4 py-2 bg-blue-600 text-white font-bold rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+    >
+      Choose File Upload
+    </button>
+    <button
+      (click)="onChooseComputerMIC()"
+      class="px-4 py-2 bg-green-600 text-white font-bold rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
+    >
+      Use Computer Mic
+    </button>
+  </div>
+
+  <div *ngIf="chooseFileUpload" class="space-y-4">
+    <input
+      type="file"
+      (change)="onFileChange($event)"
+      class="block w-full text-sm text-gray-700 border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+    />
+    <button
+      (click)="onSubmit()"
+      class="w-full py-2 px-4 bg-blue-600 text-white font-bold rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+    >
+      Submit File
+    </button>
+  </div>
+
+  <div *ngIf="chooseComputerMIC" class="space-y-4">
+    <button
+      *ngIf="!isRecording"
+      (click)="startRecording()"
+      class="w-full py-2 px-4 bg-red-600 text-white font-bold rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500"
+    >
+      Start Recording
+    </button>
+    <button
+      *ngIf="isRecording"
+      (click)="stopRecording()"
+      class="w-full py-2 px-4 bg-gray-600 text-white font-bold rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500"
+    >
+      Stop Recording
+    </button>
+    <button
+      *ngIf="recordedAudioFile"
+      (click)="onSubmit()"
+      class="w-full py-2 px-4 bg-green-600 text-white font-bold rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
+    >
+      Submit Recording
+    </button>
+  </div>
+
+  <div *ngIf="errorMessage" class="error text-red-500 font-semibold">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="transcript" class="space-y-4">
+    <h3 class="text-lg font-medium text-gray-800">Transcript:</h3>
+    <p class="text-gray-600">{{ transcript }}</p>
+  </div>
+</div>

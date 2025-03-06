@@ -6,7 +6,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
-# Load the Whisper model once
+#locate the dowloaded ggml-base in c/users/username/.cashe/whisper folder
 print("Loading Whisper model...")
 model = whisper.load_model("base")
 print("Model loaded successfully!")
@@ -18,7 +18,7 @@ def speech_to_text():
 
         # Check if file is in request
         if 'file' not in request.files:
-            print("❌ No file received!")
+            print("No file received!")
             return jsonify({'error': 'No file provided'}), 400
 
         audio_file = request.files['file']
@@ -33,12 +33,12 @@ def speech_to_text():
 
         # Clean up
         os.remove(file_path)
-        print("✅ Transcription successful!")
+        print("Transcription successful!")
 
         return jsonify({'transcript': transcript})
 
     except Exception as e:
-        print(f"❌ Internal Server Error: {str(e)}")
+        print(f"Internal Server Error: {str(e)}")
         return jsonify({'error': f'Internal Server Error: {str(e)}'}), 500
 
 if __name__ == '__main__':
